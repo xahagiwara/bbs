@@ -44,8 +44,8 @@ function sendMessage(e) {   //キーコードを取得
     conn.send(JSON.stringify(user_json));
 
     //初期化＋chat欄に書き込み
-    document.getElementById('chat').innerHTML = '<div class=\"client\">'
-        + '<span class=\"client_name\">' + user_json.name + '</span>'
+    document.getElementById('chat').innerHTML = '<div class=\"user\">'
+        + '<span class=\"user_name\">' + user_json.name + '</span>'
         + '<p>' + user_json.message + '</p>'
         + '</div>'
         + '<div class=\"bms_clear\"></div>'
@@ -63,8 +63,8 @@ conn.onmessage = function (e) {
     e = JSON.parse(e.data);
 
     //初期化＋chat欄に書き込み
-    document.getElementById('chat').innerHTML = '<div class=\"user\">'
-        + '<span class=\"user_name\">' + e.name + '</span>'
+    document.getElementById('chat').innerHTML = '<div class=\"client\">'
+        + '<span class=\"client_name\">' + e.name + '</span>'
         + '<p>' + e.message + '</p>'
         + '</div>'
         + '<div class=\"bms_clear\"></div>'

@@ -14,7 +14,7 @@ $password = 'user';
 try {
 $dbh = new PDO($dsn, $user, $password);
 
-$sql = 'select * from chat_table, user where chat_table.user_id = user.id';
+$sql = 'select * from chat_table, user where chat_table.user_id = user.id order by chat_table.id DESC';
 ?>
 <!DOCTYPE html>
 <html lang="ja">

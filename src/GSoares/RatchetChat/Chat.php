@@ -77,11 +77,4 @@ class Chat implements MessageComponentInterface
 
         $conn->close();
     }
-
-    //ファイル書き込み
-    private function writing_csv($csv_json)
-    {
-        
-
-    }
 }
