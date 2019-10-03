@@ -21,6 +21,16 @@ if (isset($_POST['login'])) {
         $sth->bindParam(':password', $sqlPassword);
 
         $sth->execute();
+
+        if ($sth->rowCount() == 1) {
+            $sth = $sth->fetch(PDO::FETCH_ASSOC);
+            setcookie('userid', $sth['id']);
+            setcookie('name', $_POST['user_name']);
+            $_SESSION["user_name"] = $_POST['user_name'];
+            $login_success_url = 'public/html/login_success.php';
+            header("Location: {$login_success_url}");
+            exit;
+        }
     } catch (PDOException $e) {
         print('Error:' . $e->getMessage());
         die();
@@ -28,13 +38,6 @@ if (isset($_POST['login'])) {
         $dbh = null;
     }
 
-    if ($sth->rowCount() == 1) {
-        setcookie('name', $_POST['user_name']);
-        $_SESSION["user_name"] = $_POST['user_name'];
-        $login_success_url = 'public/html/login_success.php';
-        header("Location: {$login_success_url}");
-        exit;
-    }
     $error_message = "<br>※ID、もしくはパスワードが間違っています。<br>　もう一度入力して下さい。";
 }
 ?>
