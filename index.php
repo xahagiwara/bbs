@@ -29,7 +29,7 @@ if (isset($_POST['login'])) {
     }
 
     if ($sth->rowCount() == 1) {
-        setcookie('user_name', $_POST['user_name']);
+        setcookie('name', $_POST['user_name']);
         $_SESSION["user_name"] = $_POST['user_name'];
         $login_success_url = 'public/html/login_success.php';
         header("Location: {$login_success_url}");

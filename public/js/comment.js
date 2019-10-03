@@ -15,11 +15,11 @@ conn.onopen = function (e) {
     //クッキー情報の読み込み
     var cookie = document.cookie.split(';');
     cookie.forEach(function(item) {
-        cookie_obj[item.split("=")[0]] = item.split("=")[1];
+        cookie_obj[item.split("=")[0].replace(/\s+/g, "")] = item.split("=")[1];
     });
 
-    user_json['name'] = cookie_obj['user_name'];
-    document.getElementById('name_print').innerHTML = 'ユーザーネーム：' + cookie_obj['user_name'];
+    user_json['name'] = cookie_obj['name'];
+    document.getElementById('name_print').innerHTML = 'ユーザーネーム：' + cookie_obj["name"];
 };
 
 //テキストエリアにて値が入力、Enterが押された時に発火するイベント
