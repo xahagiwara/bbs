@@ -4,6 +4,7 @@ var pas = "localhost";
 var conn = new WebSocket('ws://' + pas + ':8080');
 var name;     // ユーザーネーム
 var user_json = {
+    "id": undefined,
     "name": undefined,
     "message": undefined
 };  // ユーザーの基本情報
@@ -18,6 +19,7 @@ conn.onopen = function (e) {
         cookie_obj[item.split("=")[0].replace(/\s+/g, "")] = item.split("=")[1];
     });
 
+    user_json['id'] = cookie_obj['userid'];
     user_json['name'] = cookie_obj['name'];
     document.getElementById('name_print').innerHTML = 'ユーザーネーム：' + cookie_obj["name"];
 };

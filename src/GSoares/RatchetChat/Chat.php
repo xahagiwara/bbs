@@ -2,6 +2,8 @@
 
 namespace GSoares\RatchetChat;
 
+use PDO;
+use PDOException;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
@@ -34,7 +36,24 @@ class Chat implements MessageComponentInterface
         $user_json['name'] = htmlspecialchars($user_json['name'], ENT_QUOTES, "UTF-8");
         $user_json['message'] = htmlspecialchars($user_json['message'], ENT_QUOTES, "UTF-8");
 
-        $this->writing_csv($user_json);
+        $dsn = 'mysql:dbname=login_test;host=127.0.0.1';
+        $user = 'user';
+        $password = 'user';
+        try {
+            $dbh = new PDO($dsn, $user, $password);
+
+            $sql = 'INSERT INTO chat_table (id, user_id, comment) VALUES (NULL, :user_id, :user_comment);';
+            $sth = $dbh->prepare($sql);
+            $sth->bindParam(':user_id', $user_json['id']);
+            $sth->bindParam(':user_comment', $user_json['message']);
+
+            $sth->execute();
+        } catch (PDOException $e) {
+            print('Error:' . $e->getMessage());
+            die();
+        } finally {
+            $dbh = null;
+        }
 
         foreach ($this->clients as $client) {
             if ($from !== $client) {
